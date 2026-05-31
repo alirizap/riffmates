@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 
 def credits(request):
@@ -11,3 +11,7 @@ def about(request):
         <p>A website for musicians!</p>
     """
     return HttpResponse(content, content_type="text/html")
+
+def info(request):
+    content = {'version': '0.0.1'}
+    return JsonResponse(content)
