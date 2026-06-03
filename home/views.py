@@ -1,4 +1,5 @@
 from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
 
 
 def credits(request):
@@ -15,3 +16,13 @@ def about(request):
 def info(request):
     content = {'version': '0.0.1'}
     return JsonResponse(content)
+
+def news(request):
+    data = {
+        "news": [
+            "RiffMates now has a new page",
+            "RiffMates has its first web page",
+        ]
+    }
+
+    return render(request, "news2.html", data)

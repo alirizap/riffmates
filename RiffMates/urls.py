@@ -25,4 +25,5 @@ urlpatterns = [
     path('credits/', home_views.credits),
     path('about/', home_views.about),
     path('info/', home_views.info),
+    path('news/', home_views.news, name="news")
 ]

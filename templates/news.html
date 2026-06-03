@@ -1,0 +1,15 @@
+<!-- riffmates/templates/news.html -->
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Riffmates News</title>
+    </head>
+    <body>
+        <h1>Riffmates News</h1>
+        <ul>
+            {% for item in news %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
