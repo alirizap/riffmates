@@ -6,5 +6,5 @@ class Musician(models.Model):
     last_name = models.CharField(max_length=50)
     birth = models.DateField()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Musician(id={self.id}, last_name={self.last_name})"
