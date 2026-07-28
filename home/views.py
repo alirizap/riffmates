@@ -6,6 +6,7 @@ def credits(request):
     content = "Nicky\nAlireza"
     return HttpResponse(content, content_type="text/plain")
 
+
 def about(request):
     content = """
         <h1>About Page</h1>
@@ -13,9 +14,11 @@ def about(request):
     """
     return HttpResponse(content, content_type="text/html")
 
+
 def info(request):
-    content = {'version': '0.0.1'}
+    content = {"version": "0.0.1"}
     return JsonResponse(content)
+
 
 def news(request):
     data = {
