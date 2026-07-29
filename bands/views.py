@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from bands.models import Musician
@@ -15,7 +16,10 @@ def musicians(request):
     paginator = Paginator(all_musicians, 2)
 
     page_num = request.GET.get("page", 1)
-    page_num = int(page_num)
+    try:
+        page_num = int(page_num)
+    except TypeError, ValueError:
+        raise Http404("Page must be a number")
 
     if page_num < 1:
         page_num = 1
