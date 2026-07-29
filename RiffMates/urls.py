@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from home import views as home_views
+from bands import views as band_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -27,4 +28,5 @@ urlpatterns = [
     path("info/", home_views.info),
     path("news/", home_views.news, name="news"),
     path("bands/", include("bands.urls")),
+    path("venues/", band_views.venues, name="venues"),
 ]
