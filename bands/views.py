@@ -31,7 +31,7 @@ def musicians(request):
     try:
         page_num = int(page_num)
     except TypeError, ValueError:
-        raise Http404("Page must be a number")
+        page_num = 1
 
     if page_num < 1:
         page_num = 1
@@ -70,7 +70,7 @@ def bands(request):
     try:
         page_num = int(page_num)
     except TypeError, ValueError:
-        raise Http404("Page must be a number")
+        page_num = 1
 
     if page_num < 1:
         page_num = 1
@@ -102,7 +102,7 @@ def venues(request):
     try:
         page_num = int(page_num)
     except TypeError, ValueError:
-        raise Http404("Page must be a number")
+        page_num = 1
 
     if page_num < 1:
         page_num = 1
