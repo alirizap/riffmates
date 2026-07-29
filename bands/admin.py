@@ -1,7 +1,9 @@
 from django.contrib import admin
-from django.http import Http404
+from django.utils.html import format_html
+from django.utils.safestring import mark_safe
+from django.urls import reverse
 from datetime import datetime, date
-from bands.models import Musician
+from bands.models import Musician, Band
 
 
 class DecadeListFilter(admin.SimpleListFilter):
@@ -40,7 +42,14 @@ class DecadeListFilter(admin.SimpleListFilter):
 
 @admin.register(Musician)
 class MusicianAdmin(admin.ModelAdmin):
-    list_display = ("id", "last_name", "first_name", "birth", "show_weekday")
+    list_display = (
+        "id",
+        "last_name",
+        "first_name",
+        "birth",
+        "show_weekday",
+        "show_bands",
+    )
     list_filter = (DecadeListFilter,)
     search_fields = ("last_name", "first_name")
 
@@ -48,4 +57,24 @@ class MusicianAdmin(admin.ModelAdmin):
         # Fetch weekday of artist's birth
         return obj.birth.strftime("%A")
 
+    def show_bands(self, obj):
+        bands = obj.band_set.all()
+        if len(bands) == 0:
+            return mark_safe("<i>None</i>")
+
+        plural = ""
+        if len(bands) > 1:
+            plural = "s"
+
+        parm = "?id__in=" + ",".join([str(b.id) for b in bands])
+        url = reverse("admin:bands_band_changelist") + parm
+
+        return format_html('<a href="{}">Band{}</a>', url, plural)
+
     show_weekday.short_description = "Birth Weekday"
+    show_bands.short_description = "Bands"
+
+
+@admin.register(Band)
+class BandAdmin(admin.ModelAdmin):
+    pass
