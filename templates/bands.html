@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{block.super}}: Bands Listing
+{% endblock %}
+
+{% block content %}
+  <h1>Bands</h1>
+
+  <ul>
+    {% for band in bands %}
+      <li> <a href="{% url 'band' band.id %}">{{band.name}}</a></li>
+      {% empty %}
+        <li><i>No bands in database</i></li>
+    {% endfor %}
+  </ul>
+
+  {% if page.has_other_pages %}
+    {% if page.has_previous %}
+      <a href="{% url 'bands' %}?page={{page.previous_page_number}}{% if request.GET.per_page %}&per_page={{request.GET.per_page}}{% endif %}">Prev</a> &nbsp;&nbsp;&nbsp;
+    {% endif %}
+    {% if page.has_next %}
+      <a href="{% url 'bands' %}?page={{page.next_page_number}}{% if request.GET.per_page %}&per_page={{request.GET.per_page}}{% endif %}">Next</a>
+    {% endif %}
+  {% endif %}
+{% endblock %}
