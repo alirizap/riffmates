@@ -77,5 +77,21 @@ class MusicianAdmin(admin.ModelAdmin):
 
 @admin.register(Band)
 class BandAdmin(admin.ModelAdmin):
-    list_display = ("id", "name")
+    list_display = ("id", "name", "show_musicians")
     search_fields = ("name",)
+
+    def show_musicians(self, obj):
+        musicians = obj.musicians.all()
+        if len(musicians) == 0:
+            return mark_safe("<i>None</i>")
+
+        plural = ""
+        if len(musicians) > 1:
+            plural = "s"
+
+        parm = "?id__in=" + ",".join([str(m.id) for m in musicians])
+        url = reverse("admin:bands_musician_changelist") + parm
+
+        return format_html('<a href="{}">Musician{}</a>', url, plural)
+
+    show_musicians.short_description = "Musicians"
