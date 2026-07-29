@@ -7,7 +7,7 @@ class Musician(models.Model):
     birth = models.DateField()
 
     def __str__(self) -> str:
-        return f"Musician(id={self.id}, last_name={self.last_name})"
+        return f"{self.first_name} {self.last_name}"
 
 
 class Band(models.Model):
@@ -15,7 +15,7 @@ class Band(models.Model):
     musicians = models.ManyToManyField(Musician)
 
     def __str__(self):
-        return f"Band(id={self.id}, name={self.name})"
+        return f"{self.name}"
 
 
 class Venue(models.Model):

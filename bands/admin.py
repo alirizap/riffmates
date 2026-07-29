@@ -77,4 +77,5 @@ class MusicianAdmin(admin.ModelAdmin):
 
 @admin.register(Band)
 class BandAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("id", "name")
+    search_fields = ("name",)
