@@ -13,7 +13,19 @@ def musician(request, musician_id):
 
 def musicians(request):
     all_musicians = Musician.objects.all().order_by("last_name")
-    paginator = Paginator(all_musicians, 2)
+
+    per_page = request.GET.get("per_page", 3)
+    try:
+        per_page = int(per_page)
+    except TypeError, ValueError:
+        per_page = 3
+
+    if per_page < 1:
+        per_page = 1
+    elif per_page > 20:
+        per_page = 20
+
+    paginator = Paginator(all_musicians, per_page)
 
     page_num = request.GET.get("page", 1)
     try:
