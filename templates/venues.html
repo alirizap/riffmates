@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{block.super}}: Venues Listing
+{% endblock %}
+
+{% block content %}
+  <h1>Venues</h1>
+
+  {% for venue in venues %}
+    <h2>{{ venue.name }}</h2>
+    <ul>
+      {% for room in venue.room_set.all %}
+        <li>{{ room.name }}</li>
+      {% empty %}
+        <li>No rooms in this venue.</li>
+      {% endfor %}
+    </ul>
+  {% empty %}
+    <p><i>No venues in database.</i></p>
+  {% endfor %}
+
+  {% if page.has_other_pages %}
+    {% if page.has_previous %}
+      <a href="{% url 'venues' %}?page={{page.previous_page_number}}{% if request.GET.per_page %}&per_page={{request.GET.per_page}}{% endif %}">Prev</a> &nbsp;&nbsp;&nbsp;
+    {% endif %}
+    {% if page.has_next %}
+      <a href="{% url 'venues' %}?page={{page.next_page_number}}{% if request.GET.per_page %}&per_page={{request.GET.per_page}}{% endif %}">Next</a>
+    {% endif %}
+  {% endif %}
+{% endblock %}
