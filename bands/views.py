@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-from bands.models import Musician
+from bands.models import Musician, Band
 
 
 def musician(request, musician_id):
@@ -42,3 +42,9 @@ def musicians(request):
     data = {"musicians": page.object_list, "page": page}
 
     return render(request, "musicians.html", data)
+
+
+def band(request, band_id):
+    band = get_object_or_404(Band, id=band_id)
+    data = {"band": band}
+    return render(request, "band.html", data)
