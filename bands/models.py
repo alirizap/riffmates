@@ -22,7 +22,7 @@ class Venue(models.Model):
     name = models.CharField(max_length=20)
 
     def __str__(self):
-        return f"Venue(id={self.id}, name={self.name})"
+        return f"{self.name}"
 
 
 class Room(models.Model):

@@ -3,7 +3,7 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.urls import reverse
 from datetime import datetime, date
-from bands.models import Musician, Band
+from bands.models import Musician, Band, Venue, Room
 
 
 class DecadeListFilter(admin.SimpleListFilter):
@@ -95,3 +95,13 @@ class BandAdmin(admin.ModelAdmin):
         return format_html('<a href="{}">Musician{}</a>', url, plural)
 
     show_musicians.short_description = "Musicians"
+
+
+@admin.register(Venue)
+class VenueAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+
+
+@admin.register(Room)
+class RoomAdmin(admin.ModelAdmin):
+    list_display = ("name", "venue")
