@@ -97,9 +97,15 @@ class BandAdmin(admin.ModelAdmin):
     show_musicians.short_description = "Musicians"
 
 
+class RoomInline(admin.TabularInline):
+    model = Room
+    extra = 1
+
+
 @admin.register(Venue)
 class VenueAdmin(admin.ModelAdmin):
     list_display = ("name",)
+    inlines = (RoomInline,)
 
 
 @admin.register(Room)
