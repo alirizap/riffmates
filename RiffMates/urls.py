@@ -23,7 +23,7 @@ from bands import views as band_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("account/", include("django.contrib.auth.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
     path("credits/", home_views.credits),
     path("about/", home_views.about),
     path("info/", home_views.info),
