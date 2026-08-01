@@ -1,9 +1,11 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import User
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.urls import reverse
 from datetime import datetime, date
-from bands.models import Musician, Band, Venue, Room
+from bands.models import Musician, Band, Venue, Room, UserProfile
 
 
 class DecadeListFilter(admin.SimpleListFilter):
@@ -111,3 +113,16 @@ class VenueAdmin(admin.ModelAdmin):
 @admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):
     list_display = ("name", "venue")
+
+
+class UserProfileInline(admin.StackedInline):
+    model = UserProfile
+    can_delete = False
+
+
+class UserAdmin(admin.ModelAdmin):
+    inlines = [UserProfileInline]
+
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
