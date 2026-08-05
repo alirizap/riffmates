@@ -125,7 +125,7 @@ def restricted_page(request):
 
 @login_required
 def musician_restricted(request, musician_id):
-    musician = get_object_or_404(Musician, musician_id)
+    musician = get_object_or_404(Musician, id=musician_id)
     profile = request.user.userprofile
     allowed = False
 
